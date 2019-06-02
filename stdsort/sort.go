@@ -21,4 +21,8 @@ func main() {
 	}
 	sort.Slice(people, func(i, j int) bool { return people[i].Name < people[j].Name })
 	fmt.Println("By name:", people)
+
+	i := sort.Search(len(people), func(i int) bool { return people[i].Name == "Vera" })
+
+	fmt.Println("Index of Vera ", i)
 }
