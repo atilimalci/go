@@ -2,7 +2,6 @@ package structure
 
 import (
 	"log"
-	"strconv"
 	"testing"
 
 	"gotest.tools/assert"
@@ -35,7 +34,7 @@ func Test_dfs_PathExist(t *testing.T) {
 		log.Println(x)
 		nbVertices++
 	}
-	assert.Assert(t, nbVertices == 5, "The number of vertices should be 5"+strconv.Itoa(nbVertices))
+	assert.Assert(t, nbVertices == 5, "The number of vertices should be 5")
 }
 
 func Test_dfs_NoPath(t *testing.T) {
@@ -47,5 +46,5 @@ func Test_dfs_NoPath(t *testing.T) {
 		log.Println(x)
 		nbVertices++
 	}
-	assert.Assert(t, nbVertices == 0, "The number of vertices should be 0"+strconv.Itoa(nbVertices))
+	assert.Assert(t, nbVertices == 0, "The number of vertices should be 0")
 }
