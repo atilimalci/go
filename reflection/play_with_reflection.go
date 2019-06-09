@@ -36,7 +36,7 @@ func playWithReflection() {
 	fmt.Println("===")
 
 	fmt.Println("Third Law: To Modify a reflection object, the value must be settable")
-	var l float64 = 3.4
+	var l = 3.4
 	k := reflect.ValueOf(l)
 	fmt.Println("Settability of k:", k.CanSet())
 
