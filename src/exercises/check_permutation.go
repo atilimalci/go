@@ -1,4 +1,4 @@
-package excercises
+package exercises
 
 import (
 	"sort"

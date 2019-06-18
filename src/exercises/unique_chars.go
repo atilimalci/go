@@ -1,4 +1,4 @@
-package excercises
+package exercises
 
 // IsUniqueChars determines if a string has all unique characters
 func IsUniqueChars(str string) bool {
