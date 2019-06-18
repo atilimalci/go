@@ -1,5 +1,7 @@
 package exercises
 
+//IsPermutationOfPalindrome checks if the given string is a permutation of
+//a palindrome.
 func IsPermutationOfPalindrome(str string) bool {
 	var cb [26]int
 	a := "a"[0]
