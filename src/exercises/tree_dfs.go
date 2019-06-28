@@ -11,21 +11,98 @@ type Node struct {
 	left, right *Node
 }
 
-func (node *Node) dfs() strings.Builder {
+//	    1
+//	  /   \
+//   2     3
+// /   \
+//4     5
+//
+// 4 5 2 3 1
+func (root *Node) dfsPostorder() string {
 	var sb strings.Builder
+	s := list.New()
 
-	l := list.New()
-	curr := node
-	for curr != nil || l.Len() > 0 {
+	curr := root
+	for curr != nil || s.Len() > 0 {
 		for curr != nil {
-			l.PushFront(curr)
+			s.PushFront(curr)
+			curr = curr.left
+		}
+		// 4, 2, 1
+		curr = pop(s)
+		sb.WriteString(strconv.Itoa(curr.i))
+
+		curr = curr.right
+	}
+
+	return sb.String()
+}
+
+func (root *Node) dfsPreorder() string {
+	var sb strings.Builder
+	s := list.New()
+
+	curr := root
+	for curr != nil || s.Len() > 0 {
+		for curr != nil {
+			s.PushFront(curr)
+			sb.WriteString(strconv.Itoa(curr.i))
 			curr = curr.left
 		}
 
-		curr = l.Front().Value.(*Node)
-		l.Remove(l.Front())
+		curr = pop(s)
+		curr = curr.right
+	}
+	return sb.String()
+}
+
+func pop(l *list.List) *Node {
+	top := l.Front().Value.(*Node)
+	l.Remove(l.Front())
+	return top
+}
+
+func (root *Node) dfsInorder() string {
+	var sb strings.Builder
+
+	s := list.New()
+	curr := root
+	for curr != nil || s.Len() > 0 {
+		for curr != nil {
+			s.PushFront(curr)
+			curr = curr.left
+		}
+
+		curr = pop(s)
 		sb.WriteString(strconv.Itoa(curr.i))
 		curr = curr.right
 	}
-	return sb
+	return sb.String()
+}
+
+func (root *Node) bfs() strings.Builder {
+	var r strings.Builder
+	s1, s2 := list.New(), list.New()
+	s1.PushFront(root)
+
+	for s1.Len() > 0 {
+		node := s1.Front().Value.(*Node)
+		s1.Remove(s1.Front())
+
+		s2.PushFront(node)
+
+		if node.left != nil {
+			s1.PushFront(node.left)
+		}
+		if node.right != nil {
+			s1.PushFront(node.right)
+		}
+	}
+
+	for s2.Len() > 0 {
+		node := s2.Front().Value.(*Node)
+		s2.Remove(s2.Front())
+		r.WriteString(strconv.Itoa(node.i))
+	}
+	return r
 }

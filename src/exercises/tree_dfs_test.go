@@ -1,20 +1,96 @@
 package exercises
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
-func Test_dfs(t *testing.T) {
-	n0 := &Node{0, nil, nil}
-	n1 := &Node{2, nil, nil}
-	n2 := &Node{1, n0, n1}
-	n3 := &Node{3, n2, nil}
-	n41 := &Node{5, nil, nil}
-	n42 := &Node{7, nil, nil}
-	n4 := &Node{6, n41, n42}
-	n5 := &Node{4, n3, n4}
+func Test_dfsInorder(t *testing.T) {
+	n0 := &Node{4, nil, nil}
+	n1 := &Node{5, nil, nil}
+	n2 := &Node{2, n0, n1}
+	n3 := &Node{3, nil, nil}
+	n4 := &Node{1, n2, n3}
 
-	r := n5.dfs()
-	s := r.String()
-	if s != "01234567" {
-		t.Errorf("Expected 01234567 but got %s", s)
+	s := n4.dfsInorder()
+	if s != "42513" {
+		t.Errorf("Expected 42513 but got %s", s)
+	}
+}
+
+//	    1
+//	  /   \
+//   2     3
+// /   \
+//4     5
+func TestNode_dfsPreorder(t *testing.T) {
+	n0 := &Node{4, nil, nil}
+	n1 := &Node{5, nil, nil}
+	n2 := &Node{2, n0, n1}
+	n3 := &Node{3, nil, nil}
+
+	type fields struct {
+		i     int
+		left  *Node
+		right *Node
+	}
+	f := fields{i: 1, left: n2, right: n3}
+	tests := []struct {
+		name   string
+		fields fields
+		want   string
+	}{
+		{name: "Test dfs Preorder",
+			fields: f,
+			want:   "12453"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			root := &Node{
+				i:     tt.fields.i,
+				left:  tt.fields.left,
+				right: tt.fields.right,
+			}
+			if got := root.dfsPreorder(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Node.dfsPreorder() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNode_dfsPostorder(t *testing.T) {
+	n0 := &Node{4, nil, nil}
+	n1 := &Node{5, nil, nil}
+	n2 := &Node{2, n0, n1}
+	n3 := &Node{3, nil, nil}
+
+	type fields struct {
+		i     int
+		left  *Node
+		right *Node
+	}
+
+	f := fields{i: 1, left: n2, right: n3}
+
+	tests := []struct {
+		name   string
+		fields fields
+		want   string
+	}{
+		{name: "Test dfs Preorder",
+			fields: f,
+			want:   "45231"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			root := &Node{
+				i:     tt.fields.i,
+				left:  tt.fields.left,
+				right: tt.fields.right,
+			}
+			if got := root.dfsPostorder(); got != tt.want {
+				t.Errorf("Node.dfsPostorder() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }
