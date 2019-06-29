@@ -11,13 +11,6 @@ type Node struct {
 	left, right *Node
 }
 
-//	    1
-//	  /   \
-//   2     3
-// /   \
-//4     5
-//
-// 4 5 2 3 1
 func (root *Node) dfsPostorder() string {
 	var sb strings.Builder
 	s1 := list.New()
@@ -58,13 +51,6 @@ func dfsPosterderRecursive(node *Node, sb *strings.Builder) {
 	sb.WriteString(strconv.Itoa(node.i))
 }
 
-//	    1
-//	  /   \
-//   2     3
-// /   \
-//4     5
-//
-//12453
 func (root *Node) dfsPreorder() string {
 	var sb strings.Builder
 	s := list.New()
@@ -83,11 +69,6 @@ func (root *Node) dfsPreorder() string {
 	return sb.String()
 }
 
-//	    1
-//	  /   \
-//   2     3
-// /   \
-//4     5
 func (root *Node) dfsPreorderRecursive() string {
 	sb := new(strings.Builder)
 	dfsPreorderRecursive(root, sb)
