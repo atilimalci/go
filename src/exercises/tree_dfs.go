@@ -43,6 +43,13 @@ func (root *Node) dfsPostorder() string {
 	return sb.String()
 }
 
+//	    1
+//	  /   \
+//   2     3
+// /   \
+//4     5
+//
+//12453
 func (root *Node) dfsPreorder() string {
 	var sb strings.Builder
 	s := list.New()
@@ -67,6 +74,13 @@ func pop(l *list.List) *Node {
 	return top
 }
 
+//	    1
+//	  /   \
+//   2     3
+// /   \
+//4     5
+//
+//42513
 func (root *Node) dfsInorder() string {
 	var sb strings.Builder
 
@@ -85,29 +99,18 @@ func (root *Node) dfsInorder() string {
 	return sb.String()
 }
 
-func (root *Node) bfs() strings.Builder {
+func (root *Node) bfs() string {
 	var r strings.Builder
-	s1, s2 := list.New(), list.New()
-	s1.PushFront(root)
+	q := list.New()
 
-	for s1.Len() > 0 {
-		node := s1.Front().Value.(*Node)
-		s1.Remove(s1.Front())
+	curr := root
 
-		s2.PushFront(node)
-
-		if node.left != nil {
-			s1.PushFront(node.left)
-		}
-		if node.right != nil {
-			s1.PushFront(node.right)
-		}
+	for curr != nil {
+		r.WriteString(strconv.Itoa(curr.i))
+		q.PushBack(curr.left)
+		q.PushBack(curr.right)
+		curr = pop(q)
 	}
 
-	for s2.Len() > 0 {
-		node := s2.Front().Value.(*Node)
-		s2.Remove(s2.Front())
-		r.WriteString(strconv.Itoa(node.i))
-	}
-	return r
+	return r.String()
 }
