@@ -83,19 +83,32 @@ func (root *Node) dfsPreorder() string {
 	return sb.String()
 }
 
+//	    1
+//	  /   \
+//   2     3
+// /   \
+//4     5
+func (root *Node) dfsPreorderRecursive() string {
+	sb := new(strings.Builder)
+	dfsPreorderRecursive(root, sb)
+	return sb.String()
+}
+
+func dfsPreorderRecursive(node *Node, sb *strings.Builder) {
+	if node == nil {
+		return
+	}
+	sb.WriteString(strconv.Itoa(node.i))
+	dfsPreorderRecursive(node.left, sb)
+	dfsPreorderRecursive(node.right, sb)
+}
+
 func pop(l *list.List) *Node {
 	top := l.Front().Value.(*Node)
 	l.Remove(l.Front())
 	return top
 }
 
-//	    1
-//	  /   \
-//   2     3
-// /   \
-//4     5
-//
-//42513
 func (root *Node) dfsInorder() string {
 	var sb strings.Builder
 
@@ -112,6 +125,21 @@ func (root *Node) dfsInorder() string {
 		curr = curr.right
 	}
 	return sb.String()
+}
+
+func (root *Node) dfsInorderRecursive() string {
+	sb := new(strings.Builder)
+	dfsInorderRecursive(root, sb)
+	return sb.String()
+}
+
+func dfsInorderRecursive(node *Node, sb *strings.Builder) {
+	if node == nil {
+		return
+	}
+	dfsInorderRecursive(node.left, sb)
+	sb.WriteString(strconv.Itoa(node.i))
+	dfsInorderRecursive(node.right, sb)
 }
 
 func (root *Node) bfs() string {

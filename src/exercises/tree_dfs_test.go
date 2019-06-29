@@ -20,16 +20,67 @@ func getTestData() fields {
 	return fields{i: 1, left: n2, right: n3}
 }
 
-func Test_dfsInorder(t *testing.T) {
-	n0 := &Node{4, nil, nil}
-	n1 := &Node{5, nil, nil}
-	n2 := &Node{2, n0, n1}
-	n3 := &Node{3, nil, nil}
-	n4 := &Node{1, n2, n3}
+//	    1
+//	  /   \
+//   2     3
+// /   \
+//4     5
+//
+//42513
+func TestNode_dfsInorder(t *testing.T) {
+	f := getTestData()
 
-	s := n4.dfsInorder()
-	if s != "42513" {
-		t.Errorf("Expected 42513 but got %s", s)
+	tests := []struct {
+		name   string
+		fields fields
+		want   string
+	}{
+		{name: "Test dfsInorder",
+			fields: f,
+			want:   "42513"}}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			root := &Node{
+				i:     tt.fields.i,
+				left:  tt.fields.left,
+				right: tt.fields.right,
+			}
+			if got := root.dfsInorder(); got != tt.want {
+				t.Errorf("Node.dfsInorder() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+//	    1
+//	  /   \
+//   2     3
+// /   \
+//4     5
+//
+//42513
+func TestNode_dfsInorderRecursive(t *testing.T) {
+	f := getTestData()
+
+	tests := []struct {
+		name   string
+		fields fields
+		want   string
+	}{
+		{name: "Test dfsInorderRecursive",
+			fields: f,
+			want:   "42513"}}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			root := &Node{
+				i:     tt.fields.i,
+				left:  tt.fields.left,
+				right: tt.fields.right,
+			}
+			if got := root.dfsInorderRecursive(); got != tt.want {
+				t.Errorf("Node.dfsInorderRecursive() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }
 
@@ -60,6 +111,33 @@ func TestNode_dfsPreorder(t *testing.T) {
 			}
 			if got := root.dfsPreorder(); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Node.dfsPreorder() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNode_dfsPreorderRecursive(t *testing.T) {
+
+	f := getTestData()
+
+	tests := []struct {
+		name   string
+		fields fields
+		want   string
+	}{
+		{name: "Test dfs Preorder",
+			fields: f,
+			want:   "12453"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			root := &Node{
+				i:     tt.fields.i,
+				left:  tt.fields.left,
+				right: tt.fields.right,
+			}
+			if got := root.dfsPreorderRecursive(); got != tt.want {
+				t.Errorf("Node.dfsPreorderRecursive() = %v, want %v", got, tt.want)
 			}
 		})
 	}
