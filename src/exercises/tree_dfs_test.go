@@ -5,6 +5,21 @@ import (
 	"testing"
 )
 
+type fields struct {
+	i     int
+	left  *Node
+	right *Node
+}
+
+func getTestData() fields {
+	n0 := &Node{4, nil, nil}
+	n1 := &Node{5, nil, nil}
+	n2 := &Node{2, n0, n1}
+	n3 := &Node{3, nil, nil}
+
+	return fields{i: 1, left: n2, right: n3}
+}
+
 func Test_dfsInorder(t *testing.T) {
 	n0 := &Node{4, nil, nil}
 	n1 := &Node{5, nil, nil}
@@ -24,17 +39,9 @@ func Test_dfsInorder(t *testing.T) {
 // /   \
 //4     5
 func TestNode_dfsPreorder(t *testing.T) {
-	n0 := &Node{4, nil, nil}
-	n1 := &Node{5, nil, nil}
-	n2 := &Node{2, n0, n1}
-	n3 := &Node{3, nil, nil}
 
-	type fields struct {
-		i     int
-		left  *Node
-		right *Node
-	}
-	f := fields{i: 1, left: n2, right: n3}
+	f := getTestData()
+
 	tests := []struct {
 		name   string
 		fields fields
@@ -67,25 +74,14 @@ func TestNode_dfsPreorder(t *testing.T) {
 // 4 5 2 3 1
 
 func TestNode_dfsPostorder(t *testing.T) {
-	n0 := &Node{4, nil, nil}
-	n1 := &Node{5, nil, nil}
-	n2 := &Node{2, n0, n1}
-	n3 := &Node{3, nil, nil}
-
-	type fields struct {
-		i     int
-		left  *Node
-		right *Node
-	}
-
-	f := fields{i: 1, left: n2, right: n3}
+	f := getTestData()
 
 	tests := []struct {
 		name   string
 		fields fields
 		want   string
 	}{
-		{name: "Test dfs Preorder",
+		{name: "Test dfs Postorder",
 			fields: f,
 			want:   "45231"},
 	}
@@ -104,18 +100,33 @@ func TestNode_dfsPostorder(t *testing.T) {
 	}
 }
 
-func TestNode_bfs(t *testing.T) {
-	n0 := &Node{4, nil, nil}
-	n1 := &Node{5, nil, nil}
-	n2 := &Node{2, n0, n1}
-	n3 := &Node{3, nil, nil}
-
-	type fields struct {
-		i     int
-		left  *Node
-		right *Node
+func TestNode_dfsPosterderRecursive(t *testing.T) {
+	f := getTestData()
+	tests := []struct {
+		name   string
+		fields fields
+		want   string
+	}{
+		{name: "Test dfsPosterderRecursive",
+			fields: f,
+			want:   "45231"},
 	}
-	f := fields{i: 1, left: n2, right: n3}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			root := &Node{
+				i:     tt.fields.i,
+				left:  tt.fields.left,
+				right: tt.fields.right,
+			}
+			if got := root.dfsPosterderRecursive(); got != tt.want {
+				t.Errorf("Node.dfsPosterderRecursive() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNode_bfs(t *testing.T) {
+	f := getTestData()
 
 	tests := []struct {
 		name   string
@@ -141,18 +152,7 @@ func TestNode_bfs(t *testing.T) {
 }
 
 func TestNode_bfsRecursive(t *testing.T) {
-	n0 := &Node{4, nil, nil}
-	n1 := &Node{5, nil, nil}
-	n2 := &Node{2, n0, n1}
-	n3 := &Node{3, nil, nil}
-
-	type fields struct {
-		i     int
-		left  *Node
-		right *Node
-	}
-
-	f := fields{i: 1, left: n2, right: n3}
+	f := getTestData()
 
 	tests := []struct {
 		name   string

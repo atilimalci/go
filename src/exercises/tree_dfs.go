@@ -43,6 +43,21 @@ func (root *Node) dfsPostorder() string {
 	return sb.String()
 }
 
+func (root *Node) dfsPosterderRecursive() string {
+	sb := new(strings.Builder)
+	dfsPosterderRecursive(root, sb)
+	return sb.String()
+}
+
+func dfsPosterderRecursive(node *Node, sb *strings.Builder) {
+	if node == nil {
+		return
+	}
+	dfsPosterderRecursive(node.left, sb)
+	dfsPosterderRecursive(node.right, sb)
+	sb.WriteString(strconv.Itoa(node.i))
+}
+
 //	    1
 //	  /   \
 //   2     3
