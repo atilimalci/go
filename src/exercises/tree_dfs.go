@@ -20,19 +20,24 @@ type Node struct {
 // 4 5 2 3 1
 func (root *Node) dfsPostorder() string {
 	var sb strings.Builder
-	s := list.New()
+	s1 := list.New()
+	s2 := list.New()
 
-	curr := root
-	for curr != nil || s.Len() > 0 {
-		for curr != nil {
-			s.PushFront(curr)
-			curr = curr.left
+	s1.PushFront(root)
+	for s1.Len() > 0 {
+		curr := pop(s1)
+		s2.PushFront(curr)
+		if curr.left != nil {
+			s1.PushFront(curr.left)
 		}
-		// 4, 2, 1
-		curr = pop(s)
-		sb.WriteString(strconv.Itoa(curr.i))
+		if curr.right != nil {
+			s1.PushFront(curr.right)
+		}
+	}
 
-		curr = curr.right
+	for e := s2.Front(); e != nil; e = e.Next() {
+		n := e.Value.(*Node).i
+		sb.WriteString(strconv.Itoa(n))
 	}
 
 	return sb.String()

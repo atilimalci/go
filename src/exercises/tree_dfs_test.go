@@ -58,6 +58,14 @@ func TestNode_dfsPreorder(t *testing.T) {
 	}
 }
 
+//	    1
+//	  /   \
+//   2     3
+// /   \
+//4     5
+
+// 4 5 2 3 1
+
 func TestNode_dfsPostorder(t *testing.T) {
 	n0 := &Node{4, nil, nil}
 	n1 := &Node{5, nil, nil}
