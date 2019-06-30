@@ -4,7 +4,7 @@ import (
 	"container/list"
 )
 
-//IsParanthesesBalanced checks if the given inputs paranteses are balanced or not
+//IsParanthesesBalanced checks if the given input's paranteses are balanced or not
 func IsParanthesesBalanced(s string) bool {
 	st := list.New()
 
