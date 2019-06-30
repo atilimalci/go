@@ -25,6 +25,9 @@ func TestIsParanthesesBalanced(t *testing.T) {
 			want: true},
 		{name: "TestExpression_isParanthesesBalanced false",
 			args: args{s: "[(])"},
+			want: false},
+		{name: "TestExpression_isParanthesesBalanced false",
+			args: args{s: "[()]{}{[()()]()}]"},
 			want: false}}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

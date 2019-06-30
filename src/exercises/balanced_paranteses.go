@@ -35,8 +35,10 @@ func IsParanthesesBalanced(s string) bool {
 
 func checkStack(st *list.List, b byte) bool {
 	h := st.Front()
-	st.Remove(st.Front())
-	if h == nil || h.Value.(byte) == b {
+	if h != nil {
+		st.Remove(st.Front())
+	}
+	if h != nil && h.Value.(byte) == b {
 		return true
 	}
 	return false
