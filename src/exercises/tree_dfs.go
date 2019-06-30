@@ -6,11 +6,6 @@ import (
 	"strings"
 )
 
-type Node struct {
-	i           int
-	left, right *Node
-}
-
 func (root *Node) dfsPostorder() string {
 	var sb strings.Builder
 	s1 := list.New()
